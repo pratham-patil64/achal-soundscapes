@@ -48,41 +48,41 @@ const BioSection = () => {
     <section id="bio" className="py-20 bg-background">
       <div className="container mx-auto px-6">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-12 text-foreground">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-8 md:mb-12 text-foreground px-4">
             About <span className="text-primary">Achal</span>
           </h2>
           
-          <div className="grid lg:grid-cols-2 gap-12 items-start">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
             {/* Interactive Navigation */}
-            <div className="space-y-4">
-              <h3 className="text-2xl font-semibold text-foreground mb-6">Discover More</h3>
+            <div className="space-y-3 md:space-y-4">
+              <h3 className="text-xl md:text-2xl font-semibold text-foreground mb-4 md:mb-6 px-2">Discover More</h3>
               {sections.map((section) => {
                 const IconComponent = section.icon;
                 return (
                   <Card
                     key={section.id}
-                    className={`p-6 cursor-pointer transition-all duration-300 border-2 ${
+                    className={`p-4 md:p-6 cursor-pointer transition-all duration-300 border-2 touch-manipulation ${
                       activeSection === section.id
                         ? 'border-primary bg-primary/5 shadow-glow'
-                        : 'border-primary/20 hover:border-primary/40 bg-card'
+                        : 'border-primary/20 hover:border-primary/40 bg-card active:bg-primary/5'
                     }`}
                     onClick={() => setActiveSection(section.id)}
                   >
-                    <div className="flex items-center gap-4">
-                      <div className={`w-12 h-12 rounded-full flex items-center justify-center transition-colors ${
+                    <div className="flex items-center gap-3 md:gap-4">
+                      <div className={`w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center transition-colors ${
                         activeSection === section.id
                           ? 'bg-primary text-primary-foreground'
                           : 'bg-secondary text-foreground'
                       }`}>
-                        <IconComponent className="h-6 w-6" />
+                        <IconComponent className="h-5 w-5 md:h-6 md:w-6" />
                       </div>
-                      <div>
-                        <h4 className={`font-semibold transition-colors ${
+                      <div className="flex-1 min-w-0">
+                        <h4 className={`text-sm md:text-base font-semibold transition-colors ${
                           activeSection === section.id ? 'text-primary' : 'text-foreground'
                         }`}>
                           {section.title}
                         </h4>
-                        <p className="text-sm text-muted-foreground">
+                        <p className="text-xs md:text-sm text-muted-foreground truncate">
                           {section.id === 0 && "From passion to profession"}
                           {section.id === 1 && "Heart-centered composition"}
                           {section.id === 2 && "Portfolio highlights"}
@@ -96,18 +96,18 @@ const BioSection = () => {
             </div>
 
             {/* Content Display */}
-            <div className="lg:sticky lg:top-8">
-              <Card className="p-8 bg-card border-primary/20 shadow-elegant min-h-[400px]">
+            <div className="lg:sticky lg:top-8 mt-6 lg:mt-0">
+              <Card className="p-6 md:p-8 bg-card border-primary/20 shadow-elegant min-h-[300px] md:min-h-[400px]">
                 <div key={activeSection} className="animate-fade-in">
-                  <h3 className="text-2xl font-bold text-foreground mb-6">
+                  <h3 className="text-xl md:text-2xl font-bold text-foreground mb-4 md:mb-6">
                     {sections[activeSection].content.heading}
                   </h3>
-                  <p className="text-lg leading-relaxed text-card-foreground mb-6">
+                  <p className="text-base md:text-lg leading-relaxed text-card-foreground mb-4 md:mb-6">
                     {sections[activeSection].content.text}
                   </p>
                   
                   {activeSection === 2 && (
-                    <div className="grid grid-cols-2 gap-4 mt-8">
+                    <div className="grid grid-cols-2 gap-3 md:gap-4 mt-6 md:mt-8">
                       {[
                         "Film Scoring",
                         "Orchestration", 
@@ -116,10 +116,10 @@ const BioSection = () => {
                       ].map((skill, index) => (
                         <div 
                           key={skill}
-                          className="text-center p-4 bg-secondary rounded-lg border border-primary/10"
+                          className="text-center p-3 md:p-4 bg-secondary rounded-lg border border-primary/10"
                           style={{ animationDelay: `${index * 100}ms` }}
                         >
-                          <span className="text-primary font-semibold">{skill}</span>
+                          <span className="text-sm md:text-base text-primary font-semibold">{skill}</span>
                         </div>
                       ))}
                     </div>

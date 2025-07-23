@@ -19,23 +19,23 @@ const HeroSection = () => {
       <div className="container mx-auto px-6 text-center relative z-10">
         <div className="max-w-4xl mx-auto">
           {/* Profile Image */}
-          <div className="mb-8 flex justify-center">
+          <div className="mb-6 md:mb-8 flex justify-center">
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-music rounded-full opacity-20 animate-pulse-glow"></div>
               <img 
                 src={achalPortrait} 
                 alt="Achal Pednekar" 
-                className="w-48 h-48 md:w-64 md:h-64 object-cover rounded-full border-4 border-primary/20 shadow-glow relative z-10"
+                className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-64 lg:h-64 object-cover rounded-full border-4 border-primary/20 shadow-glow relative z-10"
               />
             </div>
           </div>
 
           {/* Name and Title */}
-          <h1 className="text-5xl md:text-7xl font-bold mb-4 text-foreground animate-fade-in">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-3 md:mb-4 text-foreground animate-fade-in px-4">
             Achal <span className="text-primary">Pednekar</span>
           </h1>
           
-          <p className="text-xl md:text-2xl text-muted-foreground mb-8 animate-fade-in delay-200">
+          <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground mb-6 md:mb-8 animate-fade-in delay-200 px-4">
             Music Composer & Sound Designer
           </p>
 

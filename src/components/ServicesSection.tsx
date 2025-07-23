@@ -67,24 +67,24 @@ const ServicesSection = () => {
       <div className="container mx-auto px-6">
         <div className="max-w-6xl mx-auto">
           {/* Services Header */}
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground">
+          <div className="text-center mb-12 md:mb-16">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 md:mb-6 text-foreground px-4">
               Services & <span className="text-primary">Process</span>
             </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto px-4">
               Professional music composition services tailored to bring your creative vision to life. 
               From concept to completion, every project receives dedicated attention and artistic excellence.
             </p>
           </div>
 
           {/* Services Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mb-16 md:mb-20">
             {services.map((service, index) => {
               const IconComponent = service.icon;
               return (
                 <Card 
                   key={service.title}
-                  className="p-6 bg-card border-primary/20 hover:border-primary/40 transition-all duration-300 group hover:shadow-glow"
+                  className="p-4 md:p-6 bg-card border-primary/20 hover:border-primary/40 transition-all duration-300 group hover:shadow-glow touch-manipulation"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   <div className="mb-4">

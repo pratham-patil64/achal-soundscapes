@@ -91,45 +91,45 @@ const ContactSection = () => {
     <section id="contact" className="py-20 bg-background">
       <div className="container mx-auto px-6">
         <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground">
+          <div className="text-center mb-12 md:mb-16">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 md:mb-6 text-foreground px-4">
               Let's Create <span className="text-primary">Together</span>
             </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
               Ready to bring your project to life with custom music? 
               Reach out to discuss your vision and let's create something beautiful.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-12">
+          <div className="grid lg:grid-cols-2 gap-8 md:gap-12">
             {/* Contact Info */}
-            <div className="space-y-8">
-              <Card className="p-6 bg-card border-primary/20">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
-                    <Mail className="h-6 w-6 text-primary" />
+            <div className="space-y-6 md:space-y-8">
+              <Card className="p-4 md:p-6 bg-card border-primary/20">
+                <div className="flex items-center gap-3 md:gap-4 mb-3 md:mb-4">
+                  <div className="w-10 h-10 md:w-12 md:h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                    <Mail className="h-5 w-5 md:h-6 md:w-6 text-primary" />
                   </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-foreground">Direct Email</h3>
-                    <p className="text-muted-foreground">achal.pednekar@email.com</p>
+                  <div className="min-w-0 flex-1">
+                    <h3 className="text-base md:text-lg font-semibold text-foreground">Direct Email</h3>
+                    <p className="text-sm md:text-base text-muted-foreground truncate">achal.pednekar@email.com</p>
                   </div>
                 </div>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-xs md:text-sm text-muted-foreground">
                   For urgent inquiries or direct communication
                 </p>
               </Card>
 
-              <Card className="p-6 bg-card border-primary/20">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center">
-                    <Music className="h-6 w-6 text-accent" />
+              <Card className="p-4 md:p-6 bg-card border-primary/20">
+                <div className="flex items-center gap-3 md:gap-4 mb-3 md:mb-4">
+                  <div className="w-10 h-10 md:w-12 md:h-12 bg-accent/10 rounded-full flex items-center justify-center">
+                    <Music className="h-5 w-5 md:h-6 md:w-6 text-accent" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-foreground">Services</h3>
-                    <p className="text-muted-foreground">Custom Compositions</p>
+                    <h3 className="text-base md:text-lg font-semibold text-foreground">Services</h3>
+                    <p className="text-sm md:text-base text-muted-foreground">Custom Compositions</p>
                   </div>
                 </div>
-                <ul className="text-sm text-muted-foreground space-y-1">
+                <ul className="text-xs md:text-sm text-muted-foreground space-y-1">
                   <li>• Film & Media Scoring</li>
                   <li>• Commercial Music Production</li>
                   <li>• Sound Design & Audio Branding</li>
@@ -139,7 +139,7 @@ const ContactSection = () => {
             </div>
 
             {/* Contact Form */}
-            <Card className="p-8 bg-card border-primary/20">
+            <Card className="p-4 md:p-8 bg-card border-primary/20 mt-8 lg:mt-0">
               <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Webhook URL Input */}
                 <div className="mb-6 p-4 bg-secondary/50 rounded-lg border border-primary/20">
