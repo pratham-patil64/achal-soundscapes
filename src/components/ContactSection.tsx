@@ -1,13 +1,18 @@
+// src/components/ContactSection.tsx
+
 import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { useToast } from "@/hooks/use-toast";
+import { useToast } from "@/hooks/use-toast"; // Import the toast hook
 import { Mail, Music, Send } from 'lucide-react';
 
 const ContactSection = () => {
+  const FORM_ENDPOINT = "https://formsubmit.co/team.achalpednekar@gmail.com"; // !! Replace with your email
+  
+  const { toast } = useToast(); // Initialize the toast hook
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -15,71 +20,45 @@ const ContactSection = () => {
     message: '',
   });
   const [isLoading, setIsLoading] = useState(false);
-  const [webhookUrl, setWebhookUrl] = useState('');
-  const { toast } = useToast();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!webhookUrl) {
-      toast({
-        title: "Setup Required",
-        description: "Please add your Zapier webhook URL to enable email forwarding.",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    if (!formData.name || !formData.email || !formData.message) {
-      toast({
-        title: "Missing Information",
-        description: "Please fill in all required fields.",
-        variant: "destructive",
-      });
-      return;
-    }
-
+    e.preventDefault(); // This stops the page from redirecting
     setIsLoading(true);
-    
+
     try {
-      const response = await fetch(webhookUrl, {
+      const response = await fetch(FORM_ENDPOINT, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
+          'Accept': 'application/json' // This is key to prevent CORS and get a JSON response
         },
-        mode: "no-cors",
         body: JSON.stringify({
           ...formData,
-          timestamp: new Date().toISOString(),
-          source: "Achal Pednekar Portfolio",
+          _subject: "New Portfolio Contact Submission!",
+          _captcha: "false", // We still tell it to skip the captcha
         }),
       });
 
-      toast({
-        title: "Message Sent!",
-        description: "Your message has been forwarded to Achal. He'll get back to you soon!",
-      });
-
-      // Reset form
-      setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        message: '',
-      });
+      if (response.ok) {
+        toast({
+          title: "Message Sent!",
+          description: "Thank you for reaching out. I'll get back to you soon.",
+        });
+        // Reset the form
+        setFormData({ name: '', email: '', subject: '', message: '' });
+      } else {
+        throw new Error("Form submission failed");
+      }
     } catch (error) {
-      console.error("Error sending message:", error);
+      console.error(error);
       toast({
         title: "Error",
-        description: "Failed to send message. Please try again or contact directly.",
+        description: "Something went wrong. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -91,6 +70,7 @@ const ContactSection = () => {
     <section id="contact" className="py-20 bg-background">
       <div className="container mx-auto px-6">
         <div className="max-w-4xl mx-auto">
+          {/* Header (no change) */}
           <div className="text-center mb-12 md:mb-16">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 md:mb-6 text-foreground px-4">
               Let's Create <span className="text-primary">Together</span>
@@ -102,7 +82,7 @@ const ContactSection = () => {
           </div>
 
           <div className="grid lg:grid-cols-2 gap-8 md:gap-12">
-            {/* Contact Info */}
+            {/* Contact Info (no change) */}
             <div className="space-y-6 md:space-y-8">
               <Card className="p-4 md:p-6 bg-card border-primary/20">
                 <div className="flex items-center gap-3 md:gap-4 mb-3 md:mb-4">
@@ -111,14 +91,13 @@ const ContactSection = () => {
                   </div>
                   <div className="min-w-0 flex-1">
                     <h3 className="text-base md:text-lg font-semibold text-foreground">Direct Email</h3>
-                    <p className="text-sm md:text-base text-muted-foreground truncate">achal.pednekar@email.com</p>
+                    <p className="text-sm md:text-base text-muted-foreground truncate">team.achalpednekar@email.com</p>
                   </div>
                 </div>
                 <p className="text-xs md:text-sm text-muted-foreground">
                   For urgent inquiries or direct communication
                 </p>
               </Card>
-
               <Card className="p-4 md:p-6 bg-card border-primary/20">
                 <div className="flex items-center gap-3 md:gap-4 mb-3 md:mb-4">
                   <div className="w-10 h-10 md:w-12 md:h-12 bg-accent/10 rounded-full flex items-center justify-center">
@@ -130,94 +109,44 @@ const ContactSection = () => {
                   </div>
                 </div>
                 <ul className="text-xs md:text-sm text-muted-foreground space-y-1">
+                  <li>• Single Composition</li>
                   <li>• Film & Media Scoring</li>
                   <li>• Commercial Music Production</li>
                   <li>• Sound Design & Audio Branding</li>
-                  <li>• Live Performance Arrangements</li>
                 </ul>
               </Card>
             </div>
 
             {/* Contact Form */}
             <Card className="p-4 md:p-8 bg-card border-primary/20 mt-8 lg:mt-0">
+              {/* Use onSubmit and remove action/method from form tag */}
               <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Webhook URL Input */}
-                <div className="mb-6 p-4 bg-secondary/50 rounded-lg border border-primary/20">
-                  <Label htmlFor="webhook" className="text-sm font-medium">
-                    Zapier Webhook URL (Required for email forwarding)
-                  </Label>
-                  <Input
-                    id="webhook"
-                    value={webhookUrl}
-                    onChange={(e) => setWebhookUrl(e.target.value)}
-                    placeholder="https://hooks.zapier.com/hooks/catch/..."
-                    className="mt-2"
-                  />
-                  <p className="text-xs text-muted-foreground mt-1">
-                    Create a Zapier webhook to forward emails to Achal
-                  </p>
-                </div>
-
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <Label htmlFor="name">Name *</Label>
-                    <Input
-                      id="name"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      required
-                      className="mt-1"
-                    />
+                    <Input id="name" name="name" required className="mt-1"
+                           value={formData.name} onChange={handleInputChange} />
                   </div>
                   <div>
                     <Label htmlFor="email">Email *</Label>
-                    <Input
-                      id="email"
-                      name="email"
-                      type="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      required
-                      className="mt-1"
-                    />
+                    <Input id="email" name="email" type="email" required className="mt-1"
+                           value={formData.email} onChange={handleInputChange} />
                   </div>
                 </div>
-
                 <div>
                   <Label htmlFor="subject">Subject</Label>
-                  <Input
-                    id="subject"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleInputChange}
-                    placeholder="Music collaboration, project inquiry, etc."
-                    className="mt-1"
-                  />
+                  <Input id="subject" name="subject" placeholder="Music collaboration, project inquiry, etc." className="mt-1"
+                         value={formData.subject} onChange={handleInputChange} />
+                  {/* Hidden inputs are no longer needed here */}
                 </div>
-
                 <div>
                   <Label htmlFor="message">Message *</Label>
-                  <Textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    placeholder="Tell Achal about your project, timeline, and musical vision..."
-                    rows={6}
-                    required
-                    className="mt-1"
-                  />
+                  <Textarea id="message" name="message" placeholder="Tell Achal about your project..." rows={6} required className="mt-1"
+                            value={formData.message} onChange={handleInputChange} />
                 </div>
-
-                <Button 
-                  type="submit" 
-                  className="w-full bg-primary hover:bg-primary/90 shadow-glow"
-                  disabled={isLoading}
-                >
-                  {isLoading ? (
-                    <>Sending...</>
-                  ) : (
+                <Button type="submit" className="w-full bg-primary hover:bg-primary/90 shadow-glow"
+                        disabled={isLoading}>
+                  {isLoading ? 'Sending...' : (
                     <>
                       <Send className="w-4 h-4 mr-2" />
                       Send Message

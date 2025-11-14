@@ -1,30 +1,38 @@
 import AudioPlayer from './AudioPlayer';
 
+// --- Import your song snippets here ---
+// Make sure the path and file names match what you added in the `src/assets/audio` folder.
+import song1Snippet from '@/assets/audio/song1.mp3'; 
+import song2Snippet from '@/assets/audio/song2.mp3';
+import song3Snippet from '@/assets/audio/song3.mp3';
+// ------------------------------------
+
 const AudioShowcase = () => {
-  // Sample audio tracks with descriptions
+  // --- Customize your track details here ---
   const tracks = [
     {
-      title: "Midnight Dreams",
-      description: "A contemplative piano piece with gentle strings",
-      audioSrc: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav", // Placeholder
+      title: "Your Song Title 1",
+      description: "A short description of your first song.",
+      audioSrc: song1Snippet, 
       waveformData: Array.from({ length: 50 }, (_, i) => Math.sin(i * 0.2) * 30 + 50)
     },
     {
-      title: "Urban Symphony", 
-      description: "Electronic fusion with orchestral elements",
-      audioSrc: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav", // Placeholder
+      title: "Your Song Title 2", 
+      description: "A short description of your second song.",
+      audioSrc: song2Snippet,
       waveformData: Array.from({ length: 50 }, (_, i) => Math.cos(i * 0.3) * 40 + 60)
     },
     {
-      title: "Ethereal Waves",
-      description: "Ambient soundscape for meditation and focus",
-      audioSrc: "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav", // Placeholder
+      title: "Your Song Title 3",
+      description: "A short description of your third song.",
+      audioSrc: song3Snippet,
       waveformData: Array.from({ length: 50 }, (_, i) => Math.random() * 70 + 30)
     }
   ];
+  // -----------------------------------------
 
   return (
-    <section id="audio-showcase" className="py-20 bg-secondary/20">
+    <section id="audio-showcase" className="py-20 bg-background">
       <div className="container mx-auto px-6">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
@@ -33,7 +41,7 @@ const AudioShowcase = () => {
             </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Explore a selection of compositions that showcase the depth and versatility 
-              of Achal's musical artistry. Each piece tells a unique story through sound.
+              of my musical artistry. Each piece tells a unique story through sound.
             </p>
           </div>
 
@@ -52,13 +60,6 @@ const AudioShowcase = () => {
                 />
               </div>
             ))}
-          </div>
-
-          {/* Note about audio samples */}
-          <div className="text-center mt-12">
-            <p className="text-sm text-muted-foreground italic">
-              * Audio samples are representative. Full compositions available upon request.
-            </p>
           </div>
         </div>
       </div>

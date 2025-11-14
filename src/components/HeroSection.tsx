@@ -1,66 +1,67 @@
+import React from 'react';
 import { Button } from "@/components/ui/button";
-import achalPortrait from "@/assets/achal-portrait.jpg";
 
-const HeroSection = () => {
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    element?.scrollIntoView({ behavior: 'smooth' });
-  };
-
+export function HeroSection({ 
+  name = "ACHAL PEDNEKAR", 
+  title = "Music Composer & Producer",
+  onListenClick = () => console.log("Listen Clicked")
+}) {
   return (
-    <section className="min-h-screen flex items-center justify-center bg-gradient-hero relative overflow-hidden">
-      {/* Animated background elements */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-primary rounded-full animate-pulse"></div>
-        <div className="absolute top-1/3 right-1/3 w-1 h-1 bg-accent rounded-full animate-pulse delay-1000"></div>
-        <div className="absolute bottom-1/4 left-1/3 w-3 h-3 bg-waveform rounded-full animate-pulse delay-500"></div>
+    <section className="relative w-full h-screen overflow-hidden bg-black">
+      {/* Background Image */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat animate-fade-in"
+        style={{ 
+          // Using a direct path to the image in the 'public' folder.
+          backgroundImage: `url(/achalfinal.jpg)`, 
+        }}
+      >
+        {/* Dark Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent" />
       </div>
-      
-      <div className="container mx-auto px-6 text-center relative z-10">
-        <div className="max-w-4xl mx-auto">
-          {/* Profile Image */}
-          <div className="mb-6 md:mb-8 flex justify-center">
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-music rounded-full opacity-20 animate-pulse-glow"></div>
-              <img 
-                src={achalPortrait} 
-                alt="Achal Pednekar" 
-                className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-64 lg:h-64 object-cover rounded-full border-4 border-primary/20 shadow-glow relative z-10"
-              />
-            </div>
-          </div>
 
-          {/* Name and Title */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-3 md:mb-4 text-foreground animate-fade-in px-4">
-            Achal <span className="text-primary">Pednekar</span>
-          </h1>
-          
-          <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground mb-6 md:mb-8 animate-fade-in delay-200 px-4">
-            Music Composer & Sound Designer
+      {/* Content Container */}
+      <div className="relative z-10 flex flex-col items-start justify-end h-full p-6 md:p-12 lg:p-20 max-w-7xl mx-auto">
+        
+        {/* Navigation Buttons - Top Right */}
+        <div 
+          className="absolute top-6 right-6 md:top-8 md:right-12 flex gap-3 md:gap-4 animate-fade-in"
+          style={{ animationDelay: '0.7s', animationFillMode: 'forwards' }}
+        >
+          <Button 
+            variant="outline" 
+            onClick={onListenClick}
+            className="text-sm md:text-base bg-black/30 border-white/20 hover:bg-white/10 text-white backdrop-blur-sm"
+          >
+            Listen to my work
+          </Button>
+        </div>
+
+        {/* Main Text Content - Bottom Left */}
+        <div className="text-left">
+           <p 
+            className="text-base md:text-lg text-white/80 mb-2 animate-fade-in"
+            style={{ animationDelay: '0.5s', animationFillMode: 'forwards' }}
+           >
+            {title}
           </p>
-
-          {/* Call to Action */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in delay-500">
-            <Button 
-              size="lg" 
-              className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-glow"
-              onClick={() => scrollToSection('audio-showcase')}
-            >
-              Listen to My Work
-            </Button>
-            <Button 
-              variant="outline" 
-              size="lg"
-              className="border-primary text-primary hover:bg-primary/10"
-              onClick={() => scrollToSection('contact')}
-            >
-              Get in Touch
-            </Button>
-          </div>
+          <h1 
+            className="text-4xl md:text-6xl lg:text-7xl font-extrabold text-white tracking-widest uppercase animate-fade-in"
+            style={{ 
+              animationDelay: '0.3s', 
+              animationFillMode: 'forwards',
+              fontFamily: '"Montserrat", sans-serif'
+            }}
+          >
+            <span className="text-white">ACHAL</span>{' '}
+            <span style={{ color: '#d9cd94' }}>PEDNEKAR</span>
+          </h1>
         </div>
       </div>
     </section>
   );
 };
 
-export default HeroSection;
+// You can use a default export if you prefer, like this:
+// export default Hero;
+

@@ -14,7 +14,7 @@ const Footer = () => {
           </p>
           
           <div className="flex justify-center items-center gap-4 text-xs text-muted-foreground">
-            <span>© 2024 Achal Pednekar</span>
+            <span>© 2025 Achal Pednekar</span>
             <span>•</span>
             <span>All rights reserved</span>
             <span>•</span>
