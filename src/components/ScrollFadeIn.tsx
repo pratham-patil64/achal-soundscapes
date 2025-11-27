@@ -8,51 +8,87 @@ interface ScrollFadeInProps {
   children: React.ReactNode;
   className?: string;
   delay?: number;
-  // Added optional props for customization
   rootMargin?: string; 
   threshold?: number;
+  // New props for enhanced effects
+  animation?: 'fade' | 'slide' | 'scale' | 'blur';
+  duration?: number; // in milliseconds
 }
 
 const ScrollFadeIn = ({ 
   children, 
   className, 
   delay = 0,
-  // Use props, falling back to original defaults
   rootMargin = '150px', 
-  threshold = 0.1 
-}: ScrollFadeInProps) => { // Updated props destructuring
+  threshold = 0.1,
+  animation = 'slide', // default animation
+  duration = 800 // default duration
+}: ScrollFadeInProps) => {
   const ref = useRef<HTMLDivElement>(null);
-  // Use the passed props in the hook call
-  const { isVisible, direction } = useOnScreen(ref, rootMargin, threshold); 
+  const { isVisible, direction } = useOnScreen(ref, rootMargin, threshold);
 
-  // 1. Determine the HIDDEN state class based on the scroll direction:
-  //    - 'down': Hidden below (`translate-y-12`) -> moves UP to 0
-  //    - 'up': Hidden above (`-translate-y-12`) -> moves DOWN to 0
-  const hiddenClass = direction === 'down' 
-    ? 'translate-y-12' 
-    : direction === 'up' 
-    ? '-translate-y-12'
-    : 'translate-y-0 opacity-100'; // Default: visible on initial load if direction is null
+  // Animation variants based on scroll direction and type
+  const getAnimationClasses = () => {
+    const baseClasses = 'transition-all ease-out';
+    
+    // Visible state (always the same)
+    const visibleClasses = 'translate-y-0 translate-x-0 opacity-100 scale-100 blur-0';
+    
+    // Hidden state varies by animation type and direction
+    let hiddenClasses = '';
+    
+    switch (animation) {
+      case 'fade':
+        hiddenClasses = 'opacity-0';
+        break;
+        
+      case 'slide':
+        hiddenClasses = direction === 'down' 
+          ? 'translate-y-16 opacity-0' 
+          : direction === 'up' 
+          ? '-translate-y-16 opacity-0'
+          : 'translate-y-0 opacity-100';
+        break;
+        
+      case 'scale':
+        hiddenClasses = direction === 'down'
+          ? 'translate-y-8 opacity-0 scale-95'
+          : direction === 'up'
+          ? '-translate-y-8 opacity-0 scale-95'
+          : 'translate-y-0 opacity-100 scale-100';
+        break;
+        
+      case 'blur':
+        hiddenClasses = direction === 'down'
+          ? 'translate-y-12 opacity-0 blur-sm'
+          : direction === 'up'
+          ? '-translate-y-12 opacity-0 blur-sm'
+          : 'translate-y-0 opacity-100 blur-0';
+        break;
+        
+      default:
+        hiddenClasses = 'translate-y-12 opacity-0';
+    }
 
-  // 2. Determine the VISIBLE state class
-  const visibleClass = 'translate-y-0 opacity-100';
+    return {
+      base: baseClasses,
+      visible: visibleClasses,
+      hidden: hiddenClasses
+    };
+  };
+
+  const animationClasses = getAnimationClasses();
 
   return (
     <div
       ref={ref}
       className={cn(
-        // Base transition styles and fast speed (0.5s)
-        'transition-all duration-500 transform', 
-        
-        // Apply the appropriate state based on visibility
-        isVisible ? visibleClass : hiddenClass,
-        
-        // Ensure opacity is applied in the hidden state
-        !isVisible && 'opacity-0',
-
+        animationClasses.base,
+        isVisible ? animationClasses.visible : animationClasses.hidden,
         className
       )}
       style={{
+        transitionDuration: `${duration}ms`,
         transitionDelay: `${delay}ms`,
       }}
     >
