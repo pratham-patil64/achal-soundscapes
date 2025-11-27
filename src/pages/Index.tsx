@@ -1,3 +1,5 @@
+// src/pages/Index.tsx
+
 import AnimatedBackground from "@/components/AnimatedBackground"; // The new background
 import {HeroSection} from "@/components/HeroSection";
 import BioSection from "@/components/BioSection";
@@ -8,9 +10,13 @@ import WorkedWithSection from "@/components/WorkedWithSection";
 import ListenElsewhereSection from "@/components/ListenElsewhereSection"; 
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
-
+import ScrollFadeIn from "@/components/ScrollFadeIn"; // <-- NEW IMPORT
 
 const Index = () => {
+  let scrollDelay = 0;
+  // DECREASED DELAY: Changed from 100 to 50
+  const DELAY_INCREMENT = 50; 
+
   // This function finds the element with id="youtube" and scrolls to it
   const handleListenClick = () => {
     const element = document.getElementById('youtube');
@@ -30,11 +36,28 @@ const Index = () => {
       <main className="relative z-10">
         <HeroSection onListenClick={handleListenClick} />
         {/* <BioSection /> */}
-        <ServicesSection />
-        <YouTubeSection /> 
-        <WorkedWithSection /> 
-        <ListenElsewhereSection />
-        <ContactSection />
+
+        {/* Wrap sections with ScrollFadeIn and apply staggered delay */}
+        <ScrollFadeIn delay={scrollDelay += DELAY_INCREMENT}>
+          <ServicesSection />
+        </ScrollFadeIn>
+        
+        <ScrollFadeIn delay={scrollDelay += DELAY_INCREMENT}>
+          <YouTubeSection /> 
+        </ScrollFadeIn>
+        
+        <ScrollFadeIn delay={scrollDelay += DELAY_INCREMENT}>
+          <WorkedWithSection /> 
+        </ScrollFadeIn>
+        
+        <ScrollFadeIn delay={scrollDelay += DELAY_INCREMENT}>
+          <ListenElsewhereSection />
+        </ScrollFadeIn>
+        
+        <ScrollFadeIn delay={scrollDelay += DELAY_INCREMENT}>
+          <ContactSection />
+        </ScrollFadeIn>
+
         <Footer />
       </main>
       
