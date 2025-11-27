@@ -2,41 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
-
 @layer base {
   :root {
     --background: 220 20% 8%;
     --foreground: 45 100% 95%;
-
     --card: 220 25% 12%;
     --card-foreground: 45 100% 95%;
-
     --popover: 220 25% 12%;
     --popover-foreground: 45 100% 95%;
-
     --primary: 45 100% 75%;
     --primary-foreground: 220 20% 8%;
-
     --secondary: 220 15% 18%;
     --secondary-foreground: 45 100% 95%;
-
     --muted: 220 15% 16%;
     --muted-foreground: 45 20% 65%;
-
     --accent: 280 60% 60%;
     --accent-foreground: 45 100% 95%;
-
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
-
     --border: 220 15% 20%;
     --input: 220 15% 20%;
     --ring: 45 100% 75%;
-
-    /* Music-themed custom colors */
     --audio-primary: 45 100% 75%;
     --audio-secondary: 280 60% 60%;
     --audio-accent: 200 100% 70%;
@@ -45,51 +31,34 @@ All colors MUST be HSL.
     --gradient-hero: linear-gradient(180deg, hsl(var(--background)), hsl(220 25% 12%));
     --shadow-glow: 0 0 30px hsl(var(--audio-primary) / 0.3);
     --shadow-elegant: 0 10px 40px -10px hsl(var(--background) / 0.8));
-
     --radius: 0.5rem;
-
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
-
+  
   .dark {
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
-
     --card: 222.2 84% 4.9%;
     --card-foreground: 210 40% 98%;
-
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
-
     --primary: 210 40% 98%;
     --primary-foreground: 222.2 47.4% 11.2%;
-
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
-
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
-
     --accent: 217.2 32.6% 17.5%;
     --accent-foreground: 210 40% 98%;
-
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
@@ -108,24 +77,33 @@ All colors MUST be HSL.
   * {
     @apply border-border;
   }
-
+  
   body {
-    @apply bg-background text-foreground;
-    /* Improve touch interactions on mobile */
+    background: 
+      /* Noise texture overlay */
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E"),
+      /* Subtle gradient orbs */
+      radial-gradient(ellipse 1000px 800px at 50% -30%, hsl(45 100% 75% / 0.12), transparent 60%),
+      radial-gradient(ellipse 800px 600px at 90% 50%, hsl(280 60% 60% / 0.08), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 10% 90%, hsl(200 100% 70% / 0.08), transparent 60%),
+      /* Diagonal gradient overlay */
+      linear-gradient(135deg, hsl(220 22% 9%) 0%, hsl(220 20% 8%) 30%, hsl(215 25% 10%) 60%, hsl(220 25% 12%) 100%),
+      /* Base color */
+      hsl(220 20% 8%);
+    background-attachment: fixed;
+    background-size: 200px 200px, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+    @apply text-foreground;
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
   }
-
-  /* Improve mobile scrolling */
+  
   html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
   }
-
-  /* Better touch targets for mobile */
+  
   button, a, [role="button"] {
     min-height: 44px;
     min-width: 44px;
   }
-
 }
