@@ -12,21 +12,33 @@ interface ScrollFadeInProps {
 
 const ScrollFadeIn = ({ children, className, delay = 0 }: ScrollFadeInProps) => {
   const ref = useRef<HTMLDivElement>(null);
-  // MODIFIED: Changed from '-100px' to '150px' to trigger the animation 150px *before* the element reaches the screen edge.
-  const isVisible = useOnScreen(ref, '150px'); 
+  // Retaining the earlier trigger (150px) and fast transition speed (0.1 threshold)
+  const { isVisible, direction } = useOnScreen(ref, '150px', 0.1); 
+
+  // 1. Determine the HIDDEN state class based on the scroll direction:
+  //    - 'down': Hidden below (`translate-y-12`) -> moves UP to 0
+  //    - 'up': Hidden above (`-translate-y-12`) -> moves DOWN to 0
+  const hiddenClass = direction === 'down' 
+    ? 'translate-y-12' 
+    : direction === 'up' 
+    ? '-translate-y-12'
+    : 'translate-y-0 opacity-100'; // Default: visible on initial load if direction is null
+
+  // 2. Determine the VISIBLE state class
+  const visibleClass = 'translate-y-0 opacity-100';
 
   return (
     <div
       ref={ref}
       className={cn(
-        // Animation speed remains fast at 0.5 seconds
+        // Base transition styles and fast speed (0.5s)
         'transition-all duration-500 transform', 
         
-        // Visible state (default)
-        'translate-y-0 opacity-100',
+        // Apply the appropriate state based on visibility
+        isVisible ? visibleClass : hiddenClass,
         
-        // Hidden state, applied when element is out of the expanded viewport
-        !isVisible && 'translate-y-12 opacity-0', 
+        // Ensure opacity is applied in the hidden state
+        !isVisible && 'opacity-0',
 
         className
       )}
