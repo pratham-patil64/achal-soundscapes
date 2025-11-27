@@ -8,12 +8,22 @@ interface ScrollFadeInProps {
   children: React.ReactNode;
   className?: string;
   delay?: number;
+  // Added optional props for customization
+  rootMargin?: string; 
+  threshold?: number;
 }
 
-const ScrollFadeIn = ({ children, className, delay = 0 }: ScrollFadeInProps) => {
+const ScrollFadeIn = ({ 
+  children, 
+  className, 
+  delay = 0,
+  // Use props, falling back to original defaults
+  rootMargin = '150px', 
+  threshold = 0.1 
+}: ScrollFadeInProps) => { // Updated props destructuring
   const ref = useRef<HTMLDivElement>(null);
-  // Retaining the earlier trigger (150px) and fast transition speed (0.1 threshold)
-  const { isVisible, direction } = useOnScreen(ref, '150px', 0.1); 
+  // Use the passed props in the hook call
+  const { isVisible, direction } = useOnScreen(ref, rootMargin, threshold); 
 
   // 1. Determine the HIDDEN state class based on the scroll direction:
   //    - 'down': Hidden below (`translate-y-12`) -> moves UP to 0

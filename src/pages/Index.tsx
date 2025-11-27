@@ -23,6 +23,9 @@ const Index = () => {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
+  
+  // Define a margin value to force early intersection for small sections
+  const AGGRESSIVE_MARGIN = '400px';
 
   return (
     // 'bg-background' was removed here to make the animation visible
@@ -45,11 +48,19 @@ const Index = () => {
           <YouTubeSection /> 
         </ScrollFadeIn>
         
-        <ScrollFadeIn delay={scrollDelay += DELAY_INCREMENT}>
+        {/* Applied aggressive margin to ensure the animation is visible on smaller sections */}
+        <ScrollFadeIn 
+          delay={scrollDelay += DELAY_INCREMENT}
+          rootMargin={AGGRESSIVE_MARGIN} 
+        >
           <WorkedWithSection /> 
         </ScrollFadeIn>
         
-        <ScrollFadeIn delay={scrollDelay += DELAY_INCREMENT}>
+        {/* Applied aggressive margin to ensure the animation is visible on smaller sections */}
+        <ScrollFadeIn 
+          delay={scrollDelay += DELAY_INCREMENT}
+          rootMargin={AGGRESSIVE_MARGIN} 
+        >
           <ListenElsewhereSection />
         </ScrollFadeIn>
         
