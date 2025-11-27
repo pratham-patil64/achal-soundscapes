@@ -12,20 +12,20 @@ interface ScrollFadeInProps {
 
 const ScrollFadeIn = ({ children, className, delay = 0 }: ScrollFadeInProps) => {
   const ref = useRef<HTMLDivElement>(null);
-  // Using a negative rootMargin makes the animation start before the section hits the very bottom of the screen.
-  const isVisible = useOnScreen(ref, '-100px'); 
+  // MODIFIED: Changed from '-100px' to '150px' to trigger the animation 150px *before* the element reaches the screen edge.
+  const isVisible = useOnScreen(ref, '150px'); 
 
   return (
     <div
       ref={ref}
       className={cn(
-        // DECREASED DURATION: Changed from duration-1000 to duration-500
+        // Animation speed remains fast at 0.5 seconds
         'transition-all duration-500 transform', 
         
-        // Apply visible state
+        // Visible state (default)
         'translate-y-0 opacity-100',
         
-        // Apply hidden state UNLESS isVisible is true
+        // Hidden state, applied when element is out of the expanded viewport
         !isVisible && 'translate-y-12 opacity-0', 
 
         className
