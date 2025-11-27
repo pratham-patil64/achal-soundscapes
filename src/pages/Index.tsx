@@ -1,6 +1,6 @@
 // src/pages/Index.tsx
 
-import AnimatedBackground from "@/components/AnimatedBackground"; // The new background
+// REMOVED: import AnimatedBackground from "@/components/AnimatedBackground";
 import {HeroSection} from "@/components/HeroSection";
 import BioSection from "@/components/BioSection";
 import ServicesSection from "@/components/ServicesSection";
@@ -10,11 +10,10 @@ import WorkedWithSection from "@/components/WorkedWithSection";
 import ListenElsewhereSection from "@/components/ListenElsewhereSection"; 
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
-import ScrollFadeIn from "@/components/ScrollFadeIn"; // <-- NEW IMPORT
+import ScrollFadeIn from "@/components/ScrollFadeIn";
 
 const Index = () => {
   let scrollDelay = 0;
-  // DECREASED DELAY: Changed from 100 to 50
   const DELAY_INCREMENT = 50; 
 
   // This function finds the element with id="youtube" and scrolls to it
@@ -29,7 +28,7 @@ const Index = () => {
     // 'bg-background' was removed here to make the animation visible
     <div className="min-h-screen"> 
       
-      <AnimatedBackground />
+      {/* The AnimatedBackground component has been removed */}
 
       {/* This 'main' tag with 'relative z-10' ensures your 
           content sits ON TOP of the background animation */}
