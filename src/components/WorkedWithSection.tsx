@@ -84,19 +84,23 @@ export default function WorkedWithSection() {
     const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
     const charDelay = isMobile ? 15 : 30;
     
-    return text.split('').map((char, index) => (
-      <span
-        key={index}
-        className={`inline-block transition-all duration-500 ${
-          isVisible ? 'opacity-100 translate-y-0 rotate-0' : 'opacity-0 translate-y-4 -rotate-12'
-        }`}
-        style={{ 
-          transitionDelay: isVisible ? `${baseDelay + (index * charDelay)}ms` : '0ms',
-        }}
-      >
-        {char === ' ' ? '\u00A0' : char}
+    return (
+      <span className="inline-block whitespace-nowrap">
+        {text.split('').map((char, index) => (
+          <span
+            key={index}
+            className={`inline-block transition-all duration-500 ${
+              isVisible ? 'opacity-100 translate-y-0 rotate-0' : 'opacity-0 translate-y-4 -rotate-12'
+            }`}
+            style={{ 
+              transitionDelay: isVisible ? `${baseDelay + (index * charDelay)}ms` : '0ms',
+            }}
+          >
+            {char === ' ' ? '\u00A0' : char}
+          </span>
+        ))}
       </span>
-    ));
+    );
   };
 
   return (
