@@ -80,6 +80,10 @@ const ServicesSection = () => {
 
   // Split text into characters for animation
   const animateText = (text: string) => {
+    // Faster animation on mobile
+    const isMobile = window.innerWidth < 768;
+    const charDelay = isMobile ? 20 : 40;
+    
     return text.split('').map((char, index) => (
       <span
         key={index}
@@ -87,7 +91,7 @@ const ServicesSection = () => {
           isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
         }`}
         style={{ 
-          transitionDelay: isVisible ? `${index * 40}ms` : '0ms',
+          transitionDelay: isVisible ? `${index * charDelay}ms` : '0ms',
         }}
       >
         {char === ' ' ? '\u00A0' : char}
@@ -124,7 +128,7 @@ const ServicesSection = () => {
               <p className={`text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto px-4 transition-all duration-700 ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
               }`}
-              style={{ transitionDelay: isVisible ? '400ms' : '0ms' }}>
+              style={{ transitionDelay: isVisible ? (window.innerWidth < 768 ? '200ms' : '400ms') : '0ms' }}>
                 Professional music composition services tailored to bring your creative vision to life.
                 From concept to completion, every project receives dedicated attention and artistic excellence.
               </p>
@@ -134,6 +138,9 @@ const ServicesSection = () => {
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mb-16 md:mb-20">
               {services.map((service, index) => {
                 const IconComponent = service.icon;
+                const isMobile = window.innerWidth < 768;
+                const cardDelay = isMobile ? (index * 100) + 300 : (index * 200) + 700;
+                
                 return (
                   <Card
                     key={service.title}
@@ -141,7 +148,7 @@ const ServicesSection = () => {
                       isVisible ? 'visible' : ''
                     }`}
                     style={{ 
-                      transitionDelay: isVisible ? `${(index * 200) + 700}ms` : '0ms'
+                      transitionDelay: isVisible ? `${cardDelay}ms` : '0ms'
                     }}
                   >
                     <div>
